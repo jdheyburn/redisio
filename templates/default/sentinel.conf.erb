@@ -9,6 +9,7 @@ loglevel <%=@loglevel%>
 syslog-enabled <%= @syslogenabled %>
 syslog-ident redis-<%= @name %>
 syslog-facility <%= @syslogfacility %>
+protected-mode <%= @protectedmode %>
 <%= "logfile #{@logfile}" unless @logfile.nil? %>
 
 # port <sentinel-port>
@@ -151,6 +152,10 @@ port <%=@sentinel_port%>
 # Example:
 #
 # sentinel notification-script mymaster /var/redis/notify.sh
+<% @masters.each do |current| %>
+<% calc_name = String(current['master_name'] || @name || 'master_name') %>
+<%= "sentinel notification-script #{calc_name} #{current['notification-script']}" unless current['notification-script'].nil? %>
+<% end %>
 
 # CLIENTS RECONFIGURATION SCRIPT
 #
@@ -188,3 +193,7 @@ port <%=@sentinel_port%>
 # Example:
 #
 # sentinel client-reconfig-script mymaster /var/redis/reconfig.sh
+<% @masters.each do |current| %>
+<% calc_name = String(current['master_name'] || @name || 'master_name') %>
+<%= "sentinel client-reconfig-script #{calc_name} #{current['client-reconfig-script']}" unless current['client-reconfig-script'].nil? %>
+<% end %>

@@ -28,7 +28,7 @@ default['redisio']['sentinel_defaults'] = {
   'sentinel_port'           => 26379,
   'monitor'                 => nil,
   'down-after-milliseconds' => 30000,
-  'can-failover'            => 'yes',
+  'protected-mode'          => 'yes',
   'parallel-syncs'          => 1,
   'failover-timeout'        => 900000,
   'loglevel'                => 'notice',
@@ -40,7 +40,9 @@ default['redisio']['sentinel_defaults'] = {
   'data_bag_item'           => nil,
   'data_bag_key'            => nil,
   'announce-ip'             => nil,
-  'announce-port'           => nil
+  'announce-port'           => nil,
+  'notification-script'     => nil,
+  'client-reconfig-script'  => nil
 }
 
 # Manage Sentinel Config File
